@@ -31,4 +31,28 @@ services:
     deploy:
       resources:
         limits:
-          memory: 1g
+          memory: 512m
+  ntp-a:
+    hostname: ntp-a
+    build:
+      context: ./app/ntp
+    ports:
+      - $SRV_IP_1:123:123/udp
+    cap_add:
+      - SYS_TIME
+    deploy:
+      resources:
+        limits:
+          memory: 256m
+  ntp-b:
+    hostname: ntp-b
+    build:
+      context: ./app/ntp
+    ports:
+      - $SRV_IP_2:123:123/udp
+    cap_add:
+      - SYS_TIME
+    deploy:
+      resources:
+        limits:
+          memory: 256m
