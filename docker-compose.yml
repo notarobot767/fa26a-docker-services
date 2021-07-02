@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+  code-server:
+    hostname: code-server
+    image: ghcr.io/linuxserver/code-server:latest
+      #https://hub.docker.com/r/linuxserver/code-server
+    environment:
+      - TZ=$TZ
+      - PUID=$ID
+      - PGID=$ID
+    ports:
+      - $SRV_IP_1:$CS_H_PORT:8443
+    volumes:
+       - $CS_CONFIG_DIR:/config
+       - $ROOT_DIR:/app
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 1g
