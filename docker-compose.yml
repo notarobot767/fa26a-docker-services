@@ -18,3 +18,17 @@ services:
       resources:
         limits:
           memory: 1g
+  tftp:
+    hostname: tftp
+    build:
+      context: ./app/tftp
+    volumes:
+      - $TFTP_LOG_DIR:/var/log
+      - $TFTP_DATA_DIR:/srv/tftp
+    ports:
+      - $SRV_IP_1:69:69/udp
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 1g
