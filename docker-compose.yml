@@ -108,9 +108,9 @@ services:
     container_name: msb_kibana
     hostname: kibana
     build:
-      context: ./app/kibana
+      context: ./app/elk/kibana
     ports:
-      - $SRV_IP_1:5601:5601
+      - $SRV_IP_1:$KIBANA_H_PORT:5601
     restart: unless-stopped
     deploy:
       resources:
