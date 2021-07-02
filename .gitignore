@@ -1,2 +1,3 @@
 ..*
-/app/code_server/config
+/app/code_server/config/*
+/app/log/*
