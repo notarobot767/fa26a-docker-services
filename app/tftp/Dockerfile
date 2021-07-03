@@ -32,7 +32,7 @@ RUN apt-get update -y && apt-get install -y \
 EXPOSE 69/udp
 #tftp uses udp port 69
 
-CMD ["bash", "-c" , "busybox syslogd; in.tftpd -Lscv -u tftp -B 1468 /srv/tftp"]
+CMD ["bash", "-c", "busybox syslogd; in.tftpd -Lscv -u tftp -B 1468 /srv/tftp"]
 #common blocksize 1468 bytes
 #https://manpages.debian.org/testing/tftpd-hpa/tftpd.8.en.html
 #on cisco router, ensure

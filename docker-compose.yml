@@ -19,6 +19,22 @@ services:
       resources:
         limits:
           memory: 1g
+  ns1:
+    container_name: msb_ns1
+    hostname: ns1
+    user: $ID:$ID
+    build:
+      context: ./app/bind9
+    volumes:
+      - $DNS_LOG_DIR:/app/log
+    ports:
+      - $SRV_IP_1:53:53
+      - $SRV_IP_1:53:53/udp
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 2g
   tftp:
     container_name: msb_tftp
     hostname: tftp
@@ -94,8 +110,8 @@ services:
       context: ./app/elk/logstash
     volumes:
       - ${LOGSTASH_DATA_DIR}:/usr/share/logstash/data
-    ports:
-      - $SRV_IP_1:$LOGSTASH_H_PORT:$LOGSTASH_C_PORT/udp
+    #ports:
+    #  - $SRV_IP_1:$LOGSTASH_H_PORT:$LOGSTASH_C_PORT/udp
     restart: unless-stopped
     deploy:
       resources:
@@ -116,3 +132,19 @@ services:
       resources:
         limits:
           memory: 2g
+  fb_tftp:
+    depends_on:
+      - logstash
+    container_name: msb_fb_tftp
+    hostname: fb_tftp
+    build:
+      context: ./app/elk/filebeat/tftp
+      #may have to restrict fb.yml to read only on host
+    volumes:
+      - $FB_TFTP_DATA_DIR:/usr/share/filebeat/data
+      - $TFTP_LOG_DIR:/app/log:ro
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 256m
