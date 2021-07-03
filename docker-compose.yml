@@ -240,3 +240,19 @@ services:
       resources:
         limits:
           memory: 256m
+  radius_srv:
+    depends_on:
+      - radius_db
+    container_name: msb_radius_srv
+    hostname: radius_srv
+    build:
+      context: ./app/freeradius/radius_srv
+    ports:
+      - $SRV_IP_1:1812-1813:1812-1813/udp
+    volumes:
+      - $RAD_LOG_DIR:/var/log/freeradius
+    #command: ["freeradius", "-X"]
+    deploy:
+      resources:
+        limits:
+          memory: 256m

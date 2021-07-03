@@ -6,7 +6,7 @@ LABEL maintainer="notarobot" \
   org.label-schema.build-date="2021-06-26" \
   org.label-schema.description="Radius server using FreeRadius on Ubuntu" \
   org.label-schema.url="https://www.ogrydziak.net" \
-  org.label-schema.vcs-ref="https://github.com/notarobot767/radius-freeradius"
+  org.label-schema.vcs-ref="https://github.com/notarobot767/fa26a-docker-services"
 
 ENV TZ=America/New_York
 #set timezone variable
@@ -24,7 +24,7 @@ RUN apt-get update -y && apt-get install -y \
     freeradius-utils
 #install freeradius packages
 
-COPY ./app/radius_srv/. /etc/freeradius/3.0/
+COPY ./app/. /etc/freeradius/3.0/
 #copy custom config into image
 #ensure files are not globally writable before copy
 
