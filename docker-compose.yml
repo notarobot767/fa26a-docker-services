@@ -223,3 +223,20 @@ services:
       resources:
         limits:
           memory: 256m
+  radius_db:
+    container_name: msb_radius_db
+    hostname: radius_db
+    build:
+      context: ./app/freeradius/radius_db
+    environment:
+      MYSQL_ROOT_PASSWORD: $RADIUS_SQL_ROOT_PW
+      #change this before deployment
+      #also change default pws in
+        #./app/radius_db/docker-entrypoint-initdb.d/01_create_db_add_user.sql
+        #./app/daloradius/daloradius.conf.php
+    volumes:
+      - $RADIUS_DB_DIR:/var/lib/mysql
+    deploy:
+      resources:
+        limits:
+          memory: 256m
