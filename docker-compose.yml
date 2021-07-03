@@ -162,3 +162,19 @@ services:
       resources:
         limits:
           memory: 256m
+  fb_dns:
+    depends_on:
+      - logstash
+    container_name: msb_fb_dns
+    hostname: fb_dns
+    build:
+      context: ./app/elk/filebeat/dns
+      #may have to restrict fb.yml to read only on host
+    volumes:
+      - $FB_DNS_DATA_DIR:/usr/share/filebeat/data
+      - $DNS_LOG_DIR:/app/log:ro
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 256m
