@@ -22,7 +22,6 @@ services:
   ns1:
     container_name: msb_ns1
     hostname: ns1
-    user: $ID:$ID
     build:
       context: ./app/bind9
     volumes:
