@@ -193,3 +193,18 @@ services:
       resources:
         limits:
           memory: 256m
+  fb_cisco:
+    depends_on:
+      - elastic
+    container_name: msb_fb_cisco
+    hostname: fb_cisco
+    build:
+      context: ./app/elk/filebeat/netflow
+      #may have to restrict fb.yml to read only on host
+    volumes:
+      - $FB_CISCO_DIR:/usr/share/filebeat/data
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 256m
