@@ -202,7 +202,22 @@ services:
       context: ./app/elk/filebeat/netflow
       #may have to restrict fb.yml to read only on host
     volumes:
-      - $FB_CISCO_DIR:/usr/share/filebeat/data
+      - $FB_CISCO_DATA_DIR:/usr/share/filebeat/data
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 256m
+  fb_panos:
+    depends_on:
+      - elastic
+    container_name: msb_fb_panos
+    hostname: fb_panos
+    build:
+      context: ./app/elk/filebeat/panos
+      #may have to restrict fb.yml to read only on host
+    volumes:
+      - $FB_PANOS_DATA_DIR:/usr/share/filebeat/data
     restart: unless-stopped
     deploy:
       resources:
