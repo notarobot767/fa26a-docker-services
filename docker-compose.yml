@@ -3,6 +3,8 @@ services:
   code-server:
     container_name: msb_code-server
     hostname: code-server
+    networks:
+      - code-server
     image: ghcr.io/linuxserver/code-server:latest
       #https://hub.docker.com/r/linuxserver/code-server
     environment:
@@ -22,6 +24,8 @@ services:
   ns1:
     container_name: msb_ns1
     hostname: ns1
+    networks:
+      - ns1
     build:
       context: ./app/bind9
     volumes:
@@ -34,9 +38,11 @@ services:
       resources:
         limits:
           memory: 2g
-  ns1:
+  ns2:
     container_name: msb_ns2
     hostname: ns2
+    networks:
+      - ns2
     build:
       context: ./app/bind9
     volumes:
@@ -52,6 +58,8 @@ services:
   tftp:
     container_name: msb_tftp
     hostname: tftp
+    networks:
+      - tftp
     build:
       context: ./app/tftp
     volumes:
@@ -67,6 +75,8 @@ services:
   ntp-a:
     container_name: msb_ntp-a
     hostname: ntp-a
+    networks:
+      - ntp-a
     build:
       context: ./app/ntp
     ports:
@@ -81,6 +91,8 @@ services:
   ntp-b:
     container_name: msb_ntp-b
     hostname: ntp-b
+    networks:
+      - ntp-b
     build:
       context: ./app/ntp
     ports:
@@ -95,6 +107,8 @@ services:
   elastic:
     container_name: msb_elastic
     hostname: elastic
+    networks:
+      - elk
     image: docker.elastic.co/elasticsearch/elasticsearch:7.13.2
       #https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
     environment:
@@ -120,6 +134,8 @@ services:
       - elastic
     container_name: msb_logstash
     hostname: logstash
+    networks:
+      - elk
     build:
       context: ./app/elk/logstash
     volumes:
@@ -137,6 +153,8 @@ services:
       - elastic
     container_name: msb_kibana
     hostname: kibana
+    networks:
+      - elk
     build:
       context: ./app/elk/kibana
     ports:
@@ -151,6 +169,8 @@ services:
       - logstash
     container_name: msb_fb_tftp
     hostname: fb_tftp
+    networks:
+      - elk
     build:
       context: ./app/elk/filebeat/tftp
       #may have to restrict fb.yml to read only on host
@@ -167,6 +187,8 @@ services:
       - logstash
     container_name: msb_fb_dns
     hostname: fb_dns
+    networks:
+      - elk
     build:
       context: ./app/elk/filebeat/dns
       #may have to restrict fb.yml to read only on host
@@ -183,6 +205,8 @@ services:
       - logstash
     container_name: msb_fb_freeradius
     hostname: fb_freeradius
+    networks:
+      - elk
     build:
       context: ./app/elk/filebeat/freeradius
       #may have to restrict fb.yml to read only on host
@@ -199,6 +223,8 @@ services:
       - elastic
     container_name: msb_fb_netflow
     hostname: fb_dns
+    networks:
+      - elk
     build:
       context: ./app/elk/filebeat/netflow
       #may have to restrict fb.yml to read only on host
@@ -214,6 +240,8 @@ services:
       - elastic
     container_name: msb_fb_cisco
     hostname: fb_cisco
+    networks:
+      - elk
     build:
       context: ./app/elk/filebeat/netflow
       #may have to restrict fb.yml to read only on host
@@ -229,6 +257,8 @@ services:
       - elastic
     container_name: msb_fb_panos
     hostname: fb_panos
+    networks:
+      - elk
     build:
       context: ./app/elk/filebeat/panos
       #may have to restrict fb.yml to read only on host
@@ -242,6 +272,8 @@ services:
   radius_db:
     container_name: msb_radius_db
     hostname: radius_db
+    networks:
+      - freeradius
     build:
       context: ./app/freeradius/radius_db
     environment:
@@ -261,6 +293,8 @@ services:
       - radius_db
     container_name: msb_radius_srv
     hostname: radius_srv
+    networks:
+      - freeradius
     build:
       context: ./app/freeradius/radius_srv
     ports:
@@ -278,6 +312,8 @@ services:
       - radius_db
     container_name: msb_daloradius
     hostname: daloradius
+    networks:
+      - freeradius
     build:
       context: ./app/freeradius/daloradius
     ports:
@@ -294,6 +330,8 @@ services:
   nagios:
     container_name: msb_nagios
     hostname: nagios
+    networks:
+      - nagios
     build:
       context: ./app/nagios
     environment:
@@ -308,3 +346,31 @@ services:
       resources:
         limits:
           memory: 1g
+  rproxy:
+    container_name: msb_rproxy
+    hostname: rproxy
+    networks:
+      - rproxy
+    build:
+      context: ./app/rproxy
+    ports:
+      - $SRV_IP_1:80:80
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+networks:
+  ns1:
+  ns2:
+  elk:
+  freeradius:
+  code-server:
+  tftp:
+  ntp-a:
+  ntp-b:
+  nagios:
+  rproxy:
+    ipam:
+      config:
+        - subnet: $PROXY_NETWORK
