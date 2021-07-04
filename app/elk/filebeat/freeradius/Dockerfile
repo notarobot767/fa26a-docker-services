@@ -2,7 +2,7 @@ FROM docker.elastic.co/beats/filebeat:7.13.2
 #https://www.elastic.co/guide/en/beats/filebeat/current/running-on-docker.html
 
 LABEL maintainer="notarobot" \
-  org.label-schema.name="TFTP Filebeat" \
+  org.label-schema.name="Freeradius Filebeat" \
   org.label-schema.vendor="OG Networks" \
   org.label-schema.build-date="2021-06-26" \
   org.label-schema.description="Custom Filebeat Server" \

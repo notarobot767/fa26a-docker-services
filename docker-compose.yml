@@ -178,6 +178,22 @@ services:
       resources:
         limits:
           memory: 256m
+  fb_freeradius:
+    depends_on:
+      - logstash
+    container_name: msb_fb_freeradius
+    hostname: fb_freeradius
+    build:
+      context: ./app/elk/filebeat/freeradius
+      #may have to restrict fb.yml to read only on host
+    volumes:
+      - $FB_FREERADIUS_DATA_DIR:/usr/share/filebeat/data
+      - $RAD_LOG_DIR:/app/log:ro
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 256m
   fb_netflow:
     depends_on:
       - elastic
