@@ -145,7 +145,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 2g
+          memory: 1g
   fb_tftp:
     depends_on:
       - logstash
