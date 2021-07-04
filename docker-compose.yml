@@ -307,4 +307,4 @@ services:
     deploy:
       resources:
         limits:
-          memory: 4g
+          memory: 1g
