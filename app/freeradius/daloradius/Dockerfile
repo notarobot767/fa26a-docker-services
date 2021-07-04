@@ -6,9 +6,9 @@ LABEL maintainer="notarobot" \
   org.label-schema.build-date="2021-06-26" \
   org.label-schema.description="Daloradus web gui for FreeRadius" \
   org.label-schema.url="https://www.ogrydziak.net" \
-  org.label-schema.vcs-ref="https://github.com/notarobot767/radius-freeradius"
+  org.label-schema.vcs-ref="https://github.com/notarobot767/fa26a-docker-services"
 
-COPY ./app/daloradius/daloradius.conf.php /tmp
+COPY ./daloradius.conf.php /tmp
 #copy daloradius zip and config into image
 
 ENV TZ=America/New_York

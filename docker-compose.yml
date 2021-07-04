@@ -268,6 +268,25 @@ services:
     volumes:
       - $RAD_LOG_DIR:/var/log/freeradius
     #command: ["freeradius", "-X"]
+    #use to troubleshoot
+    deploy:
+      resources:
+        limits:
+          memory: 256m
+  daloradius:
+    depends_on:
+      - radius_db
+    container_name: msb_daloradius
+    hostname: daloradius
+    build:
+      context: ./app/freeradius/daloradius
+    ports:
+      - $SRV_IP_1:$DALORADIUS_H_PORT:80
+    volumes:
+      - $RAD_LOG_DIR:/var/log/freeradius:ro
+      #chmod +r /disk2/freeradius_srv/radius.log
+      #run on host machine
+      #may be necessary to ensure daloradius container has read rights to log file
     deploy:
       resources:
         limits:
