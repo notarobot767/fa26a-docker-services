@@ -291,3 +291,20 @@ services:
       resources:
         limits:
           memory: 256m
+  nagios:
+    container_name: msb_nagios
+    hostname: nagios
+    build:
+      context: ./app/nagios
+    environment:
+      - NAGIOSADMIN=cisco
+    ports:
+      - $SRV_IP_1:$NAGIOS_H_PORT:80
+    #volumes:
+      #- $NAGIOS_TMP:/app/tmp
+        #for easily writing data back to host
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 4g
