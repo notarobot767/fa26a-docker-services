@@ -317,7 +317,7 @@ services:
     build:
       context: ./app/freeradius/daloradius
     ports:
-      - $SRV_IP_1:$DALORADIUS_H_PORT:80
+      - $SRV_PROXY:$DALORADIUS_H_PORT:80
     volumes:
       - $RAD_LOG_DIR:/var/log/freeradius:ro
       #chmod +r /disk2/freeradius_srv/radius.log
@@ -353,6 +353,9 @@ services:
       - rproxy
     build:
       context: ./app/rproxy
+    #environment:
+    #  - $SRV_PROXY
+    #  - $DALORADIUS_H_PORT
     ports:
       - $SRV_IP_1:80:80
     restart: unless-stopped
