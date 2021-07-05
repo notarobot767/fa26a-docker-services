@@ -1,0 +1,29 @@
+$TTL 1h
+@	              IN      SOA	    ns1.1id.fa26a.mil. god.1id.fa26a.mil. (
+    20210107;         #Serial
+    1h;               #Refresh                #default value in minutes
+    120;              #Retry                  #default value in seconds
+    1h;               #Expire                 #default value in minutes
+    1h);              #Negative caching TTL   #default value in minutes
+
+;name servers
+                IN      NS      ns1.1id.fa26a.mil.
+                IN      NS      ns2.1id.fa26a.mil.
+
+;net devices
+129             IN      PTR     dsw1.1id.fa26a.mil.
+130             IN      PTR     asw1.1id.fa26a.mil.
+131             IN      PTR     asw2.1id.fa26a.mil.
+132             IN      PTR     asw3.1id.fa26a.mil.
+255             IN      PTR     ce1.1id.fa26a.mil.
+
+;servers
+140             IN      PTR     docker.1id.fa26a.mil.
+145             IN      PTR     dc1.1id.fa26a.mil.
+146             IN      PTR     cucm.1id.fa26a.mil.
+
+;palo alto firewall
+2               IN      PTR     palo-fw.1id.fa26a.mil.; #VLAN100 USERS
+66              IN      PTR     palo-fw.1id.fa26a.mil.; #VLAN300 MGMT
+139             IN      PTR     palo-fw.1id.fa26a.mil.; #VLAN200 SERVERS
+245             IN      PTR     palo-fw.1id.fa26a.mil.; #Loopback 0

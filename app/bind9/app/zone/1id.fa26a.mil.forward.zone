@@ -1,0 +1,46 @@
+$TTL 1h
+@	              IN      SOA	    ns1.1id.fa26a.mil. god.1id.fa26a.mil. (
+    20210107;         #Serial
+    1h;               #Refresh                #default value in minutes
+    120;              #Retry                  #default value in seconds
+    1h;               #Expire                 #default value in minutes
+    1h);              #Negative caching TTL   #default value in minutes
+
+;name servers
+                IN      NS      ns1.1id.fa26a.mil.
+                IN      NS      ns2.1id.fa26a.mil.
+ns1             IN      A       10.0.20.8
+ns2             IN      A       10.0.20.7
+
+;net infastructure
+dsw1            IN      A       10.100.111.129
+asw1            IN      A       10.100.111.130
+asw2            IN      A       10.100.111.131
+asw3            IN      A       10.100.111.132
+ce1             IN      A       10.100.111.255
+
+;firewall
+palo-fw         IN      A       10.100.111.139
+
+;docker
+docker          IN      A       10.100.111.144
+@               IN      A       10.100.111.140
+ntp-a           IN      CNAME   @
+www             IN      CNAME   @
+kibana          IN      CNAME   @
+daloradius      IN      CNAME   @
+nagios          IN      CNAME   @
+rocket          IN      CNAME   @
+tftp            IN      CNAME   @
+ntp-b           IN      CNAME   ns2
+
+;ntp pool
+pool.ntp        IN      A       10.100.111.140
+pool.ntp        IN      A       10.100.111.141
+
+;ms
+dc1             IN      A       10.100.111.145
+nps             IN      CNAME   dc1
+
+;callmanager
+cucm            IN      A       10.100.111.146
