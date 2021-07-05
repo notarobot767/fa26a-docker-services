@@ -395,6 +395,7 @@ services:
       - $SRV_IP_1:80:80
     volumes:
       - $RPROXY_LOG_DIR:/var/log/nginx
+      - $TFTP_DATA_DIR:/app/tftp:ro
     restart: unless-stopped
     deploy:
       resources:
@@ -435,13 +436,13 @@ services:
     image: rocketchat/rocket.chat:latest
     labels:
       - "traefik.backend=rocketchat"
-      - "traefik.frontend.rule=Host: $ROOT_URL"
+      - "traefik.frontend.rule=Host: $ROCKET_ROOT_URL"
     restart: unless-stopped
     ports:
       - $SRV_PROXY:$ROCKET_H_PORT:3000
     environment:
       - PORT=3000
-      - ROOT_URL=http://${ROCKET_ROOT_URL}
+      - ROOT_URL="http://$ROCKET_ROOT_URL"
       - MONGO_OPLOG_URL=mongodb://rocket_db:27017/local
       - MONGO_URL=mongodb://rocket_db:27017/rocketchat
     deploy:
