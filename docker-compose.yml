@@ -270,6 +270,24 @@ services:
       resources:
         limits:
           memory: 256m
+  fb_nginx:
+    depends_on:
+      - elastic
+    container_name: msb_fb_nginx
+    hostname: fb_nginx
+    networks:
+      - elk
+    build:
+      context: ./app/elk/filebeat/nginx
+      #may have to restrict fb.yml to read only on host
+    volumes:
+      - $FB_NGINX_DATA_DIR:/usr/share/filebeat/data
+      - $RPROXY_LOG_DIR:/app/log:ro
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 256m
   radius_db:
     container_name: msb_radius_db
     hostname: radius_db
