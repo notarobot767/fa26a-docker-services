@@ -9,4 +9,4 @@ LABEL maintainer="notarobot" \
   org.label-schema.url="https://www.ogrydziak.net" \
   org.label-schema.vcs-ref="https://github.com/notarobot767/fa26a-docker-services"
 
-COPY ./conf.d/. /etc/nginx/conf.d/
+COPY ./nginx/. /etc/nginx
