@@ -448,6 +448,17 @@ services:
       resources:
         limits:
           memory: 2g
+  devbox:
+    container_name: msb_devbox
+    hostname: devbox
+    networks:
+      - devbox
+    build:
+      context: ./app/devbox
+    deploy:
+      resources:
+        limits:
+          memory: 512m
 networks:
   ns1:
   ns2:
@@ -460,6 +471,7 @@ networks:
   nagios:
   www:
   rocket:
+  devbox:
   rproxy:
     ipam:
       config:
