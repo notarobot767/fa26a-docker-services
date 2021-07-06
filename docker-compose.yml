@@ -462,17 +462,53 @@ services:
           memory: 512m
 networks:
   ns1:
+    ipam:
+      config:
+        - subnet: $NS1_NETWORK
   ns2:
+    ipam:
+      config:
+        - subnet: $NS2_NETWORK
   elk:
+    ipam:
+      config:
+        - subnet: $ELK_NETWORK
   freeradius:
+    ipam:
+      config:
+        - subnet: $FREERADIUS_NETWORK
   code-server:
+    ipam:
+      config:
+        - subnet: $CODE_SERVER_NETWORK
   tftp:
+    ipam:
+      config:
+        - subnet: $TFTP_NETWORK
   ntp-a:
+    ipam:
+      config:
+        - subnet: $NTP_A_NETWORK
   ntp-b:
+    ipam:
+      config:
+        - subnet: $NTP_B_NETWORK
   nagios:
+    ipam:
+      config:
+        - subnet: $NAGIOS_NETWORK
   www:
+    ipam:
+      config:
+        - subnet: $WWW_NETWORK
   rocket:
+    ipam:
+      config:
+        - subnet: $ROCKET_NETWORK
   devbox:
+    ipam:
+      config:
+        - subnet: $DEVBOX_NETWORK
   rproxy:
     ipam:
       config:
