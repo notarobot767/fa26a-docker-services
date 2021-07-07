@@ -460,6 +460,20 @@ services:
       resources:
         limits:
           memory: 512m
+  dhcp-a:
+    container_name: msb_dhcp-a
+    hostname: dhcp-a
+    networks:
+      dhcp-a:
+    build:
+      context: ./app/dhcp/dhcp-a
+    ports:
+    #  #- $SRV_IP_1:67:67/udp
+      - 10.0.20.10:67:67/udp
+    deploy:
+      resources:
+        limits:
+          memory: 1g
 networks:
   ns1:
     ipam:
@@ -509,6 +523,10 @@ networks:
     ipam:
       config:
         - subnet: $DEVBOX_NETWORK
+  dhcp-a:
+    ipam:
+      config:
+        - subnet: $DHCP_A_NETWORK
   rproxy:
     ipam:
       config:
