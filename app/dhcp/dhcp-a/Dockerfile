@@ -34,8 +34,4 @@ EXPOSE 67/udp
 COPY dhcp/. /etc/dhcp/
 
 CMD ["bash", "-c", "busybox syslogd -O /app/log/messages; dhcpd -4 -f -d"]
-#common blocksize 1468 bytes
-#https://manpages.debian.org/testing/tftpd-hpa/tftpd.8.en.html
-#on cisco router, ensure
-#ip tftp blocksize 1468
-#ip tftp source-interface gi 0/0
+#https://linux.die.net/man/8/dhcpd

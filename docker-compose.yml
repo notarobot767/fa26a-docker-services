@@ -490,7 +490,7 @@ services:
     ports:
       - $SRV_IP_1:67:67/udp
     volumes:
-      - $DHCP_A_LOG_DIR:/app/log
+      - $DHCP_LOG_DIR:/app/log
     deploy:
       resources:
         limits:
