@@ -141,7 +141,7 @@ services:
     volumes:
       - ${LOGSTASH_DATA_DIR}:/usr/share/logstash/data
     #ports:
-    #  - $SRV_IP_1:$LOGSTASH_H_PORT:$LOGSTASH_C_PORT/udp
+      #- $SRV_IP_1:$LOGSTASH_H_PORT:$LOGSTASH_C_PORT/udp
     restart: unless-stopped
     deploy:
       resources:
@@ -158,6 +158,8 @@ services:
       - elk
     build:
       context: ./app/elk/kibana
+    volumes:
+      - ${KIBANA_DATA_DIR}:/usr/share/kibana/data
     ports:
       - $SRV_PROXY:$KIBANA_H_PORT:5601
     restart: unless-stopped
@@ -178,6 +180,24 @@ services:
     volumes:
       - $FB_TFTP_DATA_DIR:/usr/share/filebeat/data
       - $TFTP_LOG_DIR:/app/log:ro
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 256m
+  fb_dhcp:
+    depends_on:
+      - logstash
+    container_name: msb_fb_dhcp
+    hostname: fb_dhcp
+    networks:
+      - elk
+    build:
+      context: ./app/elk/filebeat/dhcp
+      #may have to restrict fb.yml to read only on host
+    volumes:
+      - $FB_DHCP_DATA_DIR:/usr/share/filebeat/data
+      - $DHCP_LOG_DIR:/app/log:ro
     restart: unless-stopped
     deploy:
       resources:
@@ -468,8 +488,9 @@ services:
     build:
       context: ./app/dhcp/dhcp-a
     ports:
-    #  #- $SRV_IP_1:67:67/udp
-      - 10.0.20.10:67:67/udp
+      - $SRV_IP_1:67:67/udp
+    volumes:
+      - $DHCP_A_LOG_DIR:/app/log
     deploy:
       resources:
         limits:
