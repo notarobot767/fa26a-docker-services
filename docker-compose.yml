@@ -494,7 +494,22 @@ services:
     deploy:
       resources:
         limits:
-          memory: 1g
+          memory: 512m
+  dhcp-b:
+    container_name: msb_dhcp-b
+    hostname: dhcp-b
+    networks:
+      dhcp-b:
+    build:
+      context: ./app/dhcp/dhcp-b
+    ports:
+      - $SRV_IP_2:67:67/udp
+    volumes:
+      - $DHCP_LOG_DIR:/app/log
+    deploy:
+      resources:
+        limits:
+          memory: 512m
 networks:
   ns1:
     ipam:
@@ -548,6 +563,10 @@ networks:
     ipam:
       config:
         - subnet: $DHCP_A_NETWORK
+  dhcp-b:
+    ipam:
+      config:
+        - subnet: $DHCP_B_NETWORK
   rproxy:
     ipam:
       config:
