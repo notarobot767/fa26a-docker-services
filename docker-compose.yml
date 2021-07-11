@@ -33,6 +33,7 @@ services:
     ports:
       - $SRV_IP_1:53:53
       - $SRV_IP_1:53:53/udp
+      - $SRV_IP_1:953:953
     restart: unless-stopped
     deploy:
       resources:
@@ -491,6 +492,7 @@ services:
       - $SRV_IP_1:67:67/udp
     volumes:
       - $DHCP_LOG_DIR:/app/log
+      - ${ROOT_DIR}/app/bind9/app/rndc.key:/app/rndc.key:ro
     deploy:
       resources:
         limits:

@@ -1,0 +1,14 @@
+$TTL 1h
+@	              IN      SOA	    ns1.1id.fa26a.mil. god.1id.fa26a.mil. (
+    20210107;         #Serial
+    1h;               #Refresh                #default value in minutes
+    120;              #Retry                  #default value in seconds
+    1h;               #Expire                 #default value in minutes
+    1h);              #Negative caching TTL   #default value in minutes
+
+;name servers
+                IN      NS      ns1.1id.fa26a.mil.
+                IN      NS      ns2.1id.fa26a.mil.
+
+;net devices
+;129             IN      PTR     dsw1.1id.fa26a.mil.
