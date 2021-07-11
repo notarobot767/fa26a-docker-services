@@ -33,14 +33,24 @@ nagios          IN      CNAME   @
 rocket          IN      CNAME   @
 tftp            IN      CNAME   @
 ntp-b           IN      CNAME   ns2
+bastion         IN      A       10.100.111.143
 
 ;ntp pool
 pool.ntp        IN      A       10.100.111.140
 pool.ntp        IN      A       10.100.111.141
 
+;esxi
+esxi            IN      A       10.100.111.145
+
 ;ms
-dc1             IN      A       10.100.111.145
+dc1             IN      A       10.100.111.146
 nps             IN      CNAME   dc1
 
 ;callmanager
-cucm            IN      A       10.100.111.146
+cucm            IN      A       10.100.111.147
+
+;backups
+ns3             IN      A       10.100.111.155
+dhcp-c          IN      A       10.100.111.156
+ntp-c           IN      A       10.100.111.157
+tftp-b          IN      A       10.100.111.158
