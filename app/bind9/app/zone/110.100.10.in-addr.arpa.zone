@@ -11,4 +11,3 @@ $TTL 1h
                 IN      NS      ns2.1id.fa26a.mil.
 
 ;net devices
-;129             IN      PTR     dsw1.1id.fa26a.mil.
