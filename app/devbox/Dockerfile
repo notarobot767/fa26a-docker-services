@@ -1,4 +1,4 @@
-FROM nginx:latest
+FROM ubuntu:latest
 #
 
 LABEL maintainer="notarobot" \
@@ -20,6 +20,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
   #update, upgrade, set timezone
 
 RUN apt-get update -y && apt-get install -y \
+    chrony \
     dnsutils \
     iputils-ping \
     iproute2 \

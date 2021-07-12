@@ -508,6 +508,7 @@ services:
       - $SRV_IP_2:67:67/udp
     volumes:
       - $DHCP_LOG_DIR:/app/log
+      - ${ROOT_DIR}/app/bind9/app/rndc.key:/app/rndc.key:ro
     deploy:
       resources:
         limits:

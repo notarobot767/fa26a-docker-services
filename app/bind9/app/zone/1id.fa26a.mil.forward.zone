@@ -9,8 +9,8 @@ $TTL 1h
 ;name servers
                 IN      NS      ns1.1id.fa26a.mil.
                 IN      NS      ns2.1id.fa26a.mil.
-ns1             IN      A       10.0.20.8
-ns2             IN      A       10.0.20.7
+ns1             IN      A       10.100.111.140
+ns2             IN      A       10.100.111.141
 
 ;net infastructure
 dsw1            IN      A       10.100.111.129
