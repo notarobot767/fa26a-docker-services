@@ -31,7 +31,7 @@ kibana          IN      CNAME   @
 daloradius      IN      CNAME   @
 nagios          IN      CNAME   @
 rocket          IN      CNAME   @
-tftp            IN      CNAME   @
+files           IN      CNAME   @
 ntp-b           IN      CNAME   ns2
 bastion         IN      A       10.100.111.143
 
