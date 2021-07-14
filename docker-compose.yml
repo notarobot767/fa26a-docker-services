@@ -115,7 +115,7 @@ services:
     environment:
       - discovery.type=single-node
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
+      - "ES_JAVA_OPTS=-Xms6g -Xmx6g"
         #set no more than half of allocated memory
         #https://www.elastic.co/guide/en/elasticsearch/reference/current/advanced-configuration.html#set-jvm-options
     ulimits:
@@ -129,7 +129,7 @@ services:
       resources:
         limits:
           cpus: '4.0'
-          memory: 8g
+          memory: 12g
   logstash:
     depends_on:
       - elastic
@@ -148,7 +148,7 @@ services:
       resources:
         limits:
           cpus: '4.0'
-          memory: 3g
+          memory: 6g
   kibana:
     depends_on:
       - elastic
