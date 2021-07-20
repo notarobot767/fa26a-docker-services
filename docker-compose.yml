@@ -324,6 +324,7 @@ services:
         #./app/daloradius/daloradius.conf.php
     volumes:
       - $RADIUS_DB_DIR:/var/lib/mysql
+    restart: unless-stopped
     deploy:
       resources:
         limits:
@@ -343,6 +344,7 @@ services:
       - $RAD_LOG_DIR:/var/log/freeradius
     #command: ["freeradius", "-X"]
     #use to troubleshoot
+    restart: unless-stopped
     deploy:
       resources:
         limits:
@@ -364,6 +366,7 @@ services:
       #chmod +r /disk2/freeradius_srv/radius.log
       #run on host machine
       #may be necessary to ensure daloradius container has read rights to log file
+    restart: unless-stopped
     deploy:
       resources:
         limits:
@@ -435,6 +438,7 @@ services:
     volumes:
       - $ROCKET_DB_DIR:/data/db
       #datastore
+    restart: unless-stopped
     deploy:
       resources:
         limits:
@@ -493,6 +497,7 @@ services:
     volumes:
       - $DHCP_LOG_DIR:/app/log
       - ${ROOT_DIR}/app/bind9/app/rndc.key:/app/rndc.key:ro
+    restart: unless-stopped
     deploy:
       resources:
         limits:
@@ -509,6 +514,7 @@ services:
     volumes:
       - $DHCP_LOG_DIR:/app/log
       - ${ROOT_DIR}/app/bind9/app/rndc.key:/app/rndc.key:ro
+    restart: unless-stopped
     deploy:
       resources:
         limits:
