@@ -10,20 +10,52 @@ $TTL 1h
                 IN      NS      ns1.1id.fa26a.mil.
                 IN      NS      ns2.1id.fa26a.mil.
 
+;g6 wireless router
+67              IN      PTR     wireless-rtr.1id.fa26a.mil.
+
 ;net devices
-129             IN      PTR     dsw1.1id.fa26a.mil.
 130             IN      PTR     asw1.1id.fa26a.mil.
 131             IN      PTR     asw2.1id.fa26a.mil.
 132             IN      PTR     asw3.1id.fa26a.mil.
-255             IN      PTR     ce1.1id.fa26a.mil.
 
 ;servers
-140             IN      PTR     docker.1id.fa26a.mil.
-145             IN      PTR     dc1.1id.fa26a.mil.
-146             IN      PTR     cucm.1id.fa26a.mil.
+140             IN      PTR     01-docker.1id.fa26a.mil.
+141             IN      PTR     02-docker.1id.fa26a.mil.
+142             IN      PTR     03-docker.1id.fa26a.mil.
+143             IN      PTR     04-docker.1id.fa26a.mil.
+144             IN      PTR     05-docker.1id.fa26a.mil.
+145             IN      PTR     esxi.1id.fa26a.mil.
+146             IN      PTR     dc1.1id.fa26a.mil.
+147             IN      PTR     cucm.1id.fa26a.mil.
+
+;test servers
+155             IN      PTR     ns3.1id.fa26a.mil.
+156             IN      PTR     dhcp-c.1id.fa26a.mil.
+157             IN      PTR     ntp-c.1id.fa26a.mil.
+158             IN      PTR     tftp-b.1id.fa26a.mil.
+
+;dsw1
+1               IN      PTR     dsw1.1id.fa26a.mil.; #VLAN100 G2_USERS SVI
+65              IN      PTR     dsw1.1id.fa26a.mil.; #VLAN300 G6_MGMT SVI
+129             IN      PTR     dsw1.1id.fa26a.mil.; #VLAN200 SERVERS SVI
+225             IN      PTR     dsw1.1id.fa26a.mil.; #VLAN110 TEST SVI
+232             IN      PTR     dsw1.1id.fa26a.mil.; #dsw1 <-> ce1
+234             IN      PTR     dsw1.1id.fa26a.mil.; #dsw1 <-> ce1
+236             IN      PTR     dsw1.1id.fa26a.mil.; #dsw1 <-> ce1
+238             IN      PTR     dsw1.1id.fa26a.mil.; #dsw1 <-> ce1
+240             IN      PTR     dsw1.1id.fa26a.mil.; #VLAN500 dsw1 <-> palo-fw
+254             IN      PTR     dsw1.1id.fa26a.mil.; #loopback
+
+;ce1
+233             IN      PTR     ce1.1id.fa26a.mil.; #VLAN400 dsw1 <-> ce1
+235             IN      PTR     ce1.1id.fa26a.mil.; #VLAN405 dsw1 <-> ce1
+237             IN      PTR     ce1.1id.fa26a.mil.; #VLAN410 dsw1 <-> ce1
+239             IN      PTR     ce1.1id.fa26a.mil.; #VLAN415 dsw1 <-> ce1
+255             IN      PTR     ce1.1id.fa26a.mil.; #loopback
 
 ;palo alto firewall
 2               IN      PTR     palo-fw.1id.fa26a.mil.; #VLAN100 USERS
 66              IN      PTR     palo-fw.1id.fa26a.mil.; #VLAN300 MGMT
 139             IN      PTR     palo-fw.1id.fa26a.mil.; #VLAN200 SERVERS
-245             IN      PTR     palo-fw.1id.fa26a.mil.; #Loopback 0
+226             IN      PTR     palo-fw.1id.fa26a.mil.; #VLAN110 TEST
+241             IN      PTR     palo-fw.1id.fa26a.mil.; #VLAN500 FW_WAN

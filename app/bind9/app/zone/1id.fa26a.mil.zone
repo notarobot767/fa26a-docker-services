@@ -23,19 +23,17 @@ ce1             IN      A       10.100.111.255
 palo-fw         IN      A       10.100.111.139
 
 ;docker
-docker          IN      A       10.100.111.144
-
-ntp-a           IN      CNAME   ns1
-www             IN      CNAME   ns1
-kibana          IN      CNAME   ns1
-daloradius      IN      CNAME   ns1
-nagios          IN      CNAME   ns1
-rocket          IN      CNAME   ns1
-files           IN      CNAME   ns1
+@               IN      A       10.100.111.140
+ntp-a           IN      CNAME   @
+www             IN      CNAME   @
+kibana          IN      CNAME   @
+daloradius      IN      CNAME   @
+nagios          IN      CNAME   @
+rocket          IN      CNAME   @
+files           IN      CNAME   @
 ntp-b           IN      CNAME   ns2
 bastion         IN      A       10.100.111.143
-
-;ntp pool
+docker          IN      A       10.100.111.144
 pool.ntp        IN      A       10.100.111.140
 pool.ntp        IN      A       10.100.111.141
 
@@ -43,14 +41,21 @@ pool.ntp        IN      A       10.100.111.141
 esxi            IN      A       10.100.111.145
 
 ;ms
-@               IN      A       10.100.111.146
-dc1             IN      CNAME   @
-nps             IN      CNAME   @
+dc1             IN      A       10.100.111.146
+nps             IN      CNAME   dc1
+_msdcs.1id.fa26a.mil.           86400 IN NS             dc1.1id.fa26a.mil.
+_sites.1id.fa26a.mil.           86400 IN NS             dc1.1id.fa26a.mil.
+_ldap._tcp.1id.fa26a.mil.       86400 IN CNAME          _ldap._tcp.dc._msdcs.1id.fa26a.mil.
+_gc._tcp.1id.fa26a.mil.         86400 IN CNAME          _ldap._tcp.gc._msdcs.1id.fa26a.mil.
+_kerberos._tcp.1id.fa26a.mil.   86400 IN CNAME          _kerberos._tcp.dc._msdcs.1id.fa26a.mil.
+_kerberos._udp.1id.fa26a.mil.   86400 IN CNAME          _kerberos._tcp.dc._msdcs.1id.fa26a.mil.
+_kpasswd._tcp.1id.fa26a.mil.    3600  IN SRV 0 100 464  dc1.1id.fa26a.mil
+_kpasswd._udp.1id.fa26a.mil.    3600  IN SRV 0 100 464  dc1.1id.fa26a.mil
 
 ;callmanager
 cucm            IN      A       10.100.111.147
 
-;backups
+;test
 ns3             IN      A       10.100.111.155
 dhcp-c          IN      A       10.100.111.156
 ntp-c           IN      A       10.100.111.157
