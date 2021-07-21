@@ -381,7 +381,7 @@ services:
     build:
       context: ./app/nagios
     environment:
-      - NAGIOSADMIN=cisco
+      - NAGIOSADMIN=Freebeer2021!!
     ports:
       - $SRV_PROXY:$NAGIOS_H_PORT:80
     volumes:
