@@ -445,13 +445,13 @@ services:
         limits:
           memory: 1g
   #run once and then comment it out to avoid accidently deleting data 
-  rocket-mongo-init-replica:
-    image: mongo:4.0
-    networks:
-      - rocket
-    #command: 'mongo rocket_db/rocketchat --eval "rs.initiate({ _id: ''rs0'', members: [ { _id: 0, host: ''localhost:27017'' } ]})"'
-    depends_on:
-      - rocket_db
+  #rocket-mongo-init-replica:
+  #  image: mongo:4.0
+  #  networks:
+  #    - rocket
+  #  command: 'mongo rocket_db/rocketchat --eval "rs.initiate({ _id: ''rs0'', members: [ { _id: 0, host: ''localhost:27017'' } ]})"'
+  #  depends_on:
+  #    - rocket_db
   rocket_chat:
     depends_on:
       - rocket_db
