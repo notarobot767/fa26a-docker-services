@@ -51,6 +51,7 @@ services:
     ports:
       - $SRV_IP_2:53:53
       - $SRV_IP_2:53:53/udp
+      - $SRV_IP_2:953:953
     restart: unless-stopped
     deploy:
       resources:
@@ -448,7 +449,7 @@ services:
     image: mongo:4.0
     networks:
       - rocket
-    command: 'mongo rocket_db/rocketchat --eval "rs.initiate({ _id: ''rs0'', members: [ { _id: 0, host: ''localhost:27017'' } ]})"'
+    #command: 'mongo rocket_db/rocketchat --eval "rs.initiate({ _id: ''rs0'', members: [ { _id: 0, host: ''localhost:27017'' } ]})"'
     depends_on:
       - rocket_db
   rocket_chat:
