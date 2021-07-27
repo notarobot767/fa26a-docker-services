@@ -379,6 +379,8 @@ services:
     hostname: nagios
     networks:
       - nagios
+      - dhcp-a
+      - dhcp-b
     build:
       context: ./app/nagios
     environment:
