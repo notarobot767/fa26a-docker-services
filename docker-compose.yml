@@ -571,8 +571,8 @@ services:
       - MYSQL_USER=$GUAC_DB_USER
       - MYSQL_PASSWORD=$GUAC_DB_PW
     ports:
-      - $GUAC_H_PORT:8080
-      #- $SRV_SWAG_PROXY:$GUAC_H_PORT:8080
+      - $SRV_PROXY:$GUAC_H_PORT:8080
+      - 9080:8080
     restart: unless-stopped
     #deploy:
     #  resources:
