@@ -13,7 +13,7 @@ ns1             IN      A       10.100.111.140
 ns2             IN      A       10.100.111.141
 
 ;net infastructure
-dsw1            IN      A       10.100.111.129
+dsw1            IN      A       10.100.111.254
 asw1            IN      A       10.100.111.130
 asw2            IN      A       10.100.111.131
 asw3            IN      A       10.100.111.132
