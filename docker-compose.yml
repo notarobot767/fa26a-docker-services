@@ -412,6 +412,8 @@ services:
         limits:
           memory: 512m
   rproxy:
+    depends_on:
+      - wireguard
     container_name: msb_rproxy
     hostname: rproxy
     networks:
@@ -420,6 +422,7 @@ services:
       context: ./app/rproxy
     ports:
       - $SRV_IP_1:80:80
+      - $WG_IP:80:80
     volumes:
       - $RPROXY_LOG_DIR:/var/log/nginx
       - $TFTP_DATA_DIR:/app/tftp:ro
@@ -578,6 +581,33 @@ services:
     #  resources:
     #    limits:
     #      memory: 512m
+  wireguard:
+    network_mode: host
+    container_name: msb_wireguard
+    image: ghcr.io/linuxserver/wireguard:latest
+      #https://hub.docker.com/r/linuxserver/wireguard
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    privileged: true
+    environment:
+      - TZ=$TZ
+      - PUID=$ID
+      - PGID=$ID
+      - SERVERURL=$WG_SERVERURL
+    volumes:
+      - $WG_CONFIG_DIR:/config
+    #  - /lib/modules
+    #sysctls:
+    #  - net.ipv4.conf.all.src_valid_mark=1
+    #  - net.ipv6.conf.all.disable_ipv6=0
+    #ports:
+    #  - 51820:51820/udp
+    restart: unless-stopped
+    #deploy:
+    #  resources:
+    #    limits:
+    #      memory: 4g
 networks:
   ns1:
     ipam:
