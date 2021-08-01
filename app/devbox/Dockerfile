@@ -19,6 +19,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
   #update, upgrade, set timezone
 
 RUN apt-get update -y && apt-get upgrade -y && apt-get install -y \
+  bash-completion \
   chrony \
   dnsutils \
   iputils-ping \
@@ -29,17 +30,26 @@ RUN apt-get update -y && apt-get upgrade -y && apt-get install -y \
   screen \
   snmp \
   ssh \
+  sudo \
   telnet \
   traceroute \
   python3
   #install packages
 
-RUN useradd admin && \
+RUN useradd -m -s /bin/bash admin && \
   usermod -aG sudo admin && \
   passwd -d admin && \
+  #create admin user and remove password
+  \
   echo "AllowUsers admin" >> /etc/ssh/sshd_config && \
   echo "PasswordAuthentication no" >> /etc/ssh/sshd_config && \
-  #restrict ssh to user
+  #only allow admin ssh acccess adn force ssh key auth only
+  \
+  cd /home/admin && \
+  mkdir .ssh && \
+  echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDYneapDm96NAVQea3fwhrFyjd4VVM7CPLW7SvIPRKtpo684vfL8DEGQNANAU3MjDCDCt7Od9RxmfhyochqnvMcNRZQ6dSOy5pdVwlHJuAXvf0WSwC7LBQW+Q87COVPS2AoXUyaYR4eAEGqQBQmcfH+0qu4r0WQr41dP+OYV9ZsvSWQ9EKhruiUabA+3aOxYZ0K3aAOwbSmrHlPy9B1Rbr5nPGW5KUHTKJ5OdVEjQNhMBugvnEbpyV7WBw5DH2kXgUk7JyY1YAGKgD6TvH3ho0NtBfofvXzq7/yujH+4mOnZasjnmokjDnOwRylfzpU8Z1L3iM2R764Vw43VIYDkCl3" > .ssh/authorized_keys && \
+  chown -R admin:admin .ssh && \
+  #add key to authorized ssh key file
   \
   service ssh start
 

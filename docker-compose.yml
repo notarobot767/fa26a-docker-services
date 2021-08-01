@@ -11,11 +11,12 @@ services:
       - TZ=$TZ
       - PUID=$ID
       - PGID=$ID
-      - PASSWORD=$CS_PASSWORD
+      - PASSWORD=$CS_PW
     ports:
       - $SRV_IP_1:$CS_H_PORT:8443
     volumes:
        - $CS_CONFIG_DIR:/config
+       - $CS_USER_DATA_DIR:/cs
        - $ROOT_DIR:/app
     restart: unless-stopped
     deploy:
@@ -497,7 +498,9 @@ services:
       context: ./app/devbox
     restart: unless-stopped
     ports:
-      - $SRV_PROXY:$DEVBOX_H_PORT:22
+      - $SRV_IP_1:$DEVBOX_H_PORT:22
+    volumes:
+      - $CS_USER_DATA_DIR:/cs
     deploy:
       resources:
         limits:
