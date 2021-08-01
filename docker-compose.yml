@@ -251,7 +251,9 @@ services:
     build:
       context: ./app/elk/filebeat/netflow
       #may have to restrict fb.yml to read only on host
-    volumes:
+    ports:
+      - $SRV_IP_3:$FB_NETFLOW_PORT:$FB_NETFLOW_PORT/udp
+      volumes:
       - $FB_NETFLOW_DATA_DIR:/usr/share/filebeat/data
     restart: unless-stopped
     deploy:
@@ -268,7 +270,9 @@ services:
     build:
       context: ./app/elk/filebeat/netflow
       #may have to restrict fb.yml to read only on host
-    volumes:
+    ports:
+      - $SRV_IP_3:$FB_CISCO_PORT:$FB_CISCO_PORT/udp
+      volumes:
       - $FB_CISCO_DATA_DIR:/usr/share/filebeat/data
     restart: unless-stopped
     deploy:
@@ -285,6 +289,8 @@ services:
     build:
       context: ./app/elk/filebeat/panos
       #may have to restrict fb.yml to read only on host
+    ports:
+      - $SRV_IP_3:$FB_PANOS_PORT:$FB_PANOS_PORT/udp
     volumes:
       - $FB_PANOS_DATA_DIR:/usr/share/filebeat/data
     restart: unless-stopped

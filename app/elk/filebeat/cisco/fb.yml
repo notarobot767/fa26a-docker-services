@@ -4,6 +4,7 @@ filebeat.modules:
     enabled: true
     var.syslog_host: 0.0.0.0
     var.syslog_port: 5101
+    var.log_level: 5
 
 setup.ilm.rollover_alias: cisco-syslog-%{[agent.version]}
 #change default index 'filebeat-%{[agent.version]}'
