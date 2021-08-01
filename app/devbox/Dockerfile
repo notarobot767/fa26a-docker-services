@@ -1,5 +1,4 @@
 FROM ubuntu:latest
-#
 
 LABEL maintainer="notarobot" \
   org.label-schema.name="Devbox" \
@@ -19,19 +18,29 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
   dpkg-reconfigure --frontend noninteractive tzdata
   #update, upgrade, set timezone
 
-RUN apt-get update -y && apt-get install -y \
-    chrony \
-    dnsutils \
-    iputils-ping \
-    iproute2 \
-    nano \
-    nmap \
-    screen \
-    snmp \
-    ssh \
-    telnet \
-    traceroute \
-    python3
-#install packages
+RUN apt-get update -y && apt-get upgrade -y && apt-get install -y \
+  chrony \
+  dnsutils \
+  iputils-ping \
+  iproute2 \
+  nano \
+  nmap \
+  openssh-server \
+  screen \
+  snmp \
+  ssh \
+  telnet \
+  traceroute \
+  python3
+  #install packages
 
-CMD ["/bin/bash"]
+RUN useradd admin && \
+  usermod -aG sudo admin && \
+  passwd -d admin && \
+  echo "AllowUsers admin" >> /etc/ssh/sshd_config && \
+  echo "PasswordAuthentication no" >> /etc/ssh/sshd_config && \
+  #restrict ssh to user
+  \
+  service ssh start
+
+CMD ["/usr/sbin/sshd", "-D"]
