@@ -253,7 +253,7 @@ services:
       #may have to restrict fb.yml to read only on host
     ports:
       - $SRV_IP_3:$FB_NETFLOW_PORT:$FB_NETFLOW_PORT/udp
-      volumes:
+    volumes:
       - $FB_NETFLOW_DATA_DIR:/usr/share/filebeat/data
     restart: unless-stopped
     deploy:
@@ -272,7 +272,7 @@ services:
       #may have to restrict fb.yml to read only on host
     ports:
       - $SRV_IP_3:$FB_CISCO_PORT:$FB_CISCO_PORT/udp
-      volumes:
+    volumes:
       - $FB_CISCO_DATA_DIR:/usr/share/filebeat/data
     restart: unless-stopped
     deploy:
