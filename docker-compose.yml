@@ -498,9 +498,25 @@ services:
       context: ./app/devbox
     restart: unless-stopped
     ports:
-      - $SRV_IP_1:$DEVBOX_H_PORT:22
+      - $SRV_IP_3:$DEVBOX_H_PORT:22
     volumes:
       - $CS_USER_DATA_DIR:/cs
+    deploy:
+      resources:
+        limits:
+          memory: 2g
+  devbox_josh:
+    container_name: msb_devbox_josh
+    hostname: devbox
+    networks:
+      - devbox
+    build:
+      context: ./app/devbox
+    restart: unless-stopped
+    ports:
+      - $SRV_IP_3:$DEVBOX_JOSH_H_PORT:22
+    volumes:
+      - $CS_USER_DATA_DIR/josh:/cs
     deploy:
       resources:
         limits:

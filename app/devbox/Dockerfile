@@ -4,7 +4,7 @@ LABEL maintainer="notarobot" \
   org.label-schema.name="Devbox" \
   org.label-schema.vendor="OG Networks" \
   org.label-schema.build-date="2021-06-26" \
-  org.label-schema.description="Custom Nginx Server" \
+  org.label-schema.description="Custom Devbox Server" \
   org.label-schema.url="https://www.ogrydziak.net" \
   org.label-schema.vcs-ref="https://github.com/notarobot767/fa26a-docker-services"
 
@@ -20,10 +20,10 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
 
 RUN apt-get update -y && apt-get upgrade -y && apt-get install -y \
   bash-completion \
-  chrony \
   dnsutils \
   iputils-ping \
   iproute2 \
+  monitoring-plugins \
   nano \
   nmap \
   openssh-server \
@@ -51,6 +51,8 @@ RUN useradd -m -s /bin/bash admin && \
   chown -R admin:admin .ssh && \
   #add key to authorized ssh key file
   \
+  ln -s /usr/lib/nagios/plugins/* /bin/ && \
+  #create symbolic link for nagios check commands
   service ssh start
 
 CMD ["/usr/sbin/sshd", "-D"]
