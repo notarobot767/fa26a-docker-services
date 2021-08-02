@@ -13,11 +13,11 @@ services:
       - PGID=$ID
       - PASSWORD=$CS_PW
     ports:
-      - $SRV_IP_1:$CS_H_PORT:8443
+      - $SRV_PROXY:$CS_H_PORT:8443
     volumes:
        - $CS_CONFIG_DIR:/config
        - $CS_USER_DATA_DIR:/cs
-       - $ROOT_DIR:/app
+       - $ROOT_DIR:/docker
     restart: unless-stopped
     deploy:
       resources:
