@@ -507,7 +507,7 @@ services:
           memory: 2g
   devbox_josh:
     container_name: msb_devbox_josh
-    hostname: devbox
+    hostname: devbox_noah
     networks:
       - devbox
     build:
@@ -517,6 +517,22 @@ services:
       - $SRV_IP_3:$DEVBOX_JOSH_H_PORT:22
     volumes:
       - $CS_USER_DATA_DIR/josh:/cs
+    deploy:
+      resources:
+        limits:
+          memory: 2g
+  devbox_noah:
+    container_name: msb_devbox_noah
+    hostname: devbox_noah
+    networks:
+      - devbox
+    build:
+      context: ./app/devbox
+    restart: unless-stopped
+    ports:
+      - $SRV_IP_3:$DEVBOX_NOAH_H_PORT:22
+    volumes:
+      - $CS_USER_DATA_DIR/noah:/cs
     deploy:
       resources:
         limits:
@@ -603,6 +619,7 @@ services:
       - MYSQL_DATABASE=$GUAC_DB
       - MYSQL_USER=$GUAC_DB_USER
       - MYSQL_PASSWORD=$GUAC_DB_PW
+      - TOTP_ENABLED=true
     ports:
       - $SRV_PROXY:$GUAC_H_PORT:8080
       - 9080:8080
