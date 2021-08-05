@@ -270,7 +270,7 @@ services:
     networks:
       - elk
     build:
-      context: ./app/elk/filebeat/netflow
+      context: ./app/elk/filebeat/cisco
       #may have to restrict fb.yml to read only on host
     ports:
       - $SRV_IP_3:$FB_CISCO_PORT:$FB_CISCO_PORT/udp
