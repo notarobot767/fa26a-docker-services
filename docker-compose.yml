@@ -11,7 +11,7 @@ services:
       - TZ=$TZ
       - PUID=$ID
       - PGID=$ID
-      - PASSWORD=$CS_PW
+      #- PASSWORD=$CS_PW
     ports:
       - $SRV_PROXY:$CS_H_PORT:8443
     volumes:
@@ -244,6 +244,7 @@ services:
         limits:
           memory: 256m
   fb_netflow:
+    command: ["/bin/true"]
     depends_on:
       - elastic
     container_name: msb_fb_netflow
@@ -282,6 +283,7 @@ services:
         limits:
           memory: 256m
   fb_panos:
+    command: ["/bin/true"]
     depends_on:
       - elastic
     container_name: msb_fb_panos
@@ -462,7 +464,7 @@ services:
     image: mongo:4.0
     networks:
       - rocket
-    command: ["/bin/bash"]
+    command: ["/bin/true"]
     #command: 'mongo rocket_db/rocketchat --eval "rs.initiate({ _id: ''rs0'', members: [ { _id: 0, host: ''localhost:27017'' } ]})"'
     depends_on:
       - rocket_db
@@ -476,13 +478,13 @@ services:
     image: rocketchat/rocket.chat:latest
     labels:
       - "traefik.backend=rocketchat"
-      - "traefik.frontend.rule=Host: ${ROCKET_ROOT_URL}"
+      #- "traefik.frontend.rule=Host: ${ROCKET_ROOT_URL}"
     restart: unless-stopped
     ports:
       - $SRV_PROXY:$ROCKET_H_PORT:3000
     environment:
       - PORT=3000
-      - ROOT_URL=http://${ROCKET_ROOT_URL}
+      #- ROOT_URL=http://${ROCKET_ROOT_URL}
       - MONGO_OPLOG_URL=mongodb://rocket_db:27017/local
       - MONGO_URL=mongodb://rocket_db:27017/rocketchat
     deploy:
