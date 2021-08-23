@@ -283,7 +283,7 @@ services:
         limits:
           memory: 256m
   fb_panos:
-    command: ["/bin/true"]
+    #entrypoint: ["/bin/true"]
     depends_on:
       - elastic
     container_name: msb_fb_panos
@@ -464,7 +464,7 @@ services:
     image: mongo:4.0
     networks:
       - rocket
-    command: ["/bin/true"]
+    entrypoint: ["/bin/true"]
     #command: 'mongo rocket_db/rocketchat --eval "rs.initiate({ _id: ''rs0'', members: [ { _id: 0, host: ''localhost:27017'' } ]})"'
     depends_on:
       - rocket_db
