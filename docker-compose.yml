@@ -509,7 +509,7 @@ services:
           memory: 2g
   devbox_josh:
     container_name: msb_devbox_josh
-    hostname: devbox_noah
+    hostname: devbox_josh
     networks:
       - devbox
     build:
