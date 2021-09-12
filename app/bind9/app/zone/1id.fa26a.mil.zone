@@ -33,6 +33,7 @@ rocket          IN      CNAME   @
 files           IN      CNAME   @
 guac            IN      CNAME   @
 cs              IN      CNAME   @
+zabbix          IN      CNAME   @
 ntp-b           IN      CNAME   ns2
 bastion         IN      A       10.100.111.143
 docker          IN      A       10.100.111.144
